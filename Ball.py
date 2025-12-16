@@ -20,8 +20,15 @@ class Ball:
         self.y_velo = y_velo
 
     def simulate(self, dt, x_acc=0, y_acc=GRAVITY):
+        if (self.x + self.radius) >= simulator.W or (self.x + self.radius) <= 0:
+            self.x_velo = -self.x_velo - simulator.COLLISION_ENERGY_LOSS
+
+        if (self.y + self.radius) >= simulator.H or (self.y + self.radius) <= 0:
+            self.y_velo = -self.y_velo - simulator.COLLISION_ENERGY_LOSS
+
         self.x += self.x_velo * dt
         self.y -= self.y_velo * dt
+
         self.x_velo += x_acc * dt
         self.y_velo -= y_acc * dt
 
