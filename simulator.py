@@ -5,7 +5,7 @@ pygame.init()
 W, H = 800, 800
 WHITE = (255,255,255)
 
-TIME_SCALE = 8 # 5 times speed
+TIME_SCALE = 8  # 5 times speed
 
 COLLISION_ENERGY_LOSS = 5  # speed lost due to friction
 
