@@ -7,7 +7,7 @@ WHITE = (255,255,255)
 
 TIME_SCALE = 8 # 5 times speed
 
-COLLISION_ENERGY_LOSS = 5 # speed lost due to friction
+COLLISION_ENERGY_LOSS = 5  # speed lost due to friction
 
 screen = pygame.display.set_mode((W, H))
 pygame.display.set_caption("My Physics Engine Render")
