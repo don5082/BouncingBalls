@@ -1,0 +1,3 @@
+Command for all of the necessary Libraries:
+
+pip install -r numpy pygame
