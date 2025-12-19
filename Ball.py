@@ -1,8 +1,8 @@
 import numpy as np
 import pygame
 
-import simulator
-from simulator import simulate
+import Simulator
+from Simulator import simulate
 
 GRAVITY = 9.81
 class Ball:
