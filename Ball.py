@@ -1,10 +1,11 @@
+import sys
+
 import numpy as np
 import pygame
-
 import Simulator
-from Simulator import simulate
 
 GRAVITY = 9.81
+# GRAVITY = 0
 class Ball:
     x = 0.0
     y = 0.0
@@ -20,22 +21,57 @@ class Ball:
         self.y_velo = y_velo
 
     def simulate(self, dt, x_acc=0, y_acc=GRAVITY):
-        if (self.x + self.radius) >= simulator.W or (self.x + self.radius) <= 0:
-            self.x_velo = -self.x_velo - simulator.COLLISION_ENERGY_LOSS
-
-        if (self.y + self.radius) >= simulator.H or (self.y + self.radius) <= 0:
-            self.y_velo = -self.y_velo - simulator.COLLISION_ENERGY_LOSS
-
         self.x += self.x_velo * dt
         self.y -= self.y_velo * dt
 
         self.x_velo += x_acc * dt
         self.y_velo -= y_acc * dt
 
+        is_approaching_right = self.x_velo > 0
+        is_approaching_left = self.x_velo < 0
+        is_approaching_top = self.y_velo > 0
+        is_approaching_bottom = self.y_velo < 0
+
+        if ((self.x + self.radius) >= Simulator.W) and is_approaching_right :
+            # print("hit right wall")
+            if self.x_velo > Simulator.COLLISION_ENERGY_LOSS:
+                self.x_velo = -(self.x_velo - Simulator.COLLISION_ENERGY_LOSS)
+            else:
+                self.x_velo = 0
+
+        if (self.x - self.radius) <= 0 and is_approaching_left :
+            # print("hit left wall")
+            if -self.x_velo > Simulator.COLLISION_ENERGY_LOSS:
+                self.x_velo = -(self.x_velo + Simulator.COLLISION_ENERGY_LOSS)
+            else:
+                self.x_velo = 0
+
+        if (self.y + self.radius) >= Simulator.H and is_approaching_bottom:
+            # print("hit bottom wall")
+            if -self.y_velo > Simulator.COLLISION_ENERGY_LOSS:
+                self.y_velo = -(self.y_velo + Simulator.COLLISION_ENERGY_LOSS)
+            else:
+                self.y_velo = 0
+
+        if (self.y - self.radius) <= 0 and is_approaching_top:
+            print("hit top wall")
+            if self.y_velo > Simulator.COLLISION_ENERGY_LOSS:
+                self.y_velo = -(self.y_velo - Simulator.COLLISION_ENERGY_LOSS)
+            else:
+                self.y_velo = 0
+
+
+        if (self.x_velo == 0.0) and (self.y_velo == 0.0):
+            print("ball is motionless")
+            # pygame.display.quit()
+            sys.exit()
+
+
+
 
 
     def draw(self, screen):
-        pygame.draw.circle(screen, simulator.WHITE, (self.x, self.y), self.radius)
+        pygame.draw.circle(screen, Simulator.WHITE, (self.x, self.y), self.radius)
 
 
     def set_x_velo(self, x_velo_new):

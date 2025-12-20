@@ -7,7 +7,7 @@ WHITE = (255,255,255)
 
 TIME_SCALE = 8  # 5 times speed
 
-COLLISION_ENERGY_LOSS = 5  # speed lost due to friction
+COLLISION_ENERGY_LOSS = 15  # speed lost due to friction
 
 screen = pygame.display.set_mode((W, H))
 pygame.display.set_caption("My Physics Engine Render")
@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 def simulate():
     running = True
     balls = []
-    ball = Ball.Ball(W//2, 100, 10,0,0)
+    ball = Ball.Ball(W//2, 100, 10,50,0)
     balls.append(ball)
 
     while(running):
