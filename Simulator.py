@@ -1,3 +1,6 @@
+import random
+import time
+
 import Ball
 import pygame
 
@@ -18,8 +21,10 @@ clock = pygame.time.Clock()
 def simulate():
     running = True
     balls = []
-    ball = Ball.Ball(W//2, 100, 10,50,0)
-    balls.append(ball)
+    for i in range(100):
+        ball = Ball.Ball(W//2, 100, 10,random.randint(-100,100),random.randint(-100,100))
+        # ball = Ball.Ball(W//2, 100, 10, 0,0)
+        balls.append(ball)
 
     while(running):
         # dt = seconds since last frame
@@ -29,9 +34,20 @@ def simulate():
         for ball in balls:
             ball.simulate(dt)
 
+
         screen.fill((0, 0, 0))
         for ball in balls:
             ball.draw(screen)
+
+        num_motionless = 0
+        for ball in balls:
+            if ball.motionless:
+                num_motionless += 1
+
+        if num_motionless == len(balls):
+            print("all balls motionless. quitting...")
+            time.sleep(2.5)
+            running = False
 
         pygame.display.flip()
 

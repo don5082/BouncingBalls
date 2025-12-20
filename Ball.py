@@ -12,6 +12,7 @@ class Ball:
     x_velo = 0.0
     y_velo = 0.0
     radius = 1
+    motionless = False
 
     def __init__(self, x_pos, y_pos, radius, x_velo=0, y_velo=0):
         self.x = x_pos
@@ -54,7 +55,7 @@ class Ball:
                 self.y_velo = 0
 
         if (self.y - self.radius) <= 0 and is_approaching_top:
-            print("hit top wall")
+            # print("hit top wall")
             if self.y_velo > Simulator.COLLISION_ENERGY_LOSS:
                 self.y_velo = -(self.y_velo - Simulator.COLLISION_ENERGY_LOSS)
             else:
@@ -62,9 +63,10 @@ class Ball:
 
 
         if (self.x_velo == 0.0) and (self.y_velo == 0.0):
-            print("ball is motionless")
+            # print("ball is motionless")
+            self.motionless = True
             # pygame.display.quit()
-            sys.exit()
+            # sys.exit()
 
 
 
